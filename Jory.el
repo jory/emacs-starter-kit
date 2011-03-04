@@ -2,6 +2,9 @@
 
 (if (eq system-type 'windows-nt)
     (setq magit-git-executable "C:/Program Files (x86)/Git/bin/git.exe"))
+
+(setq tab-width 4)
+
 (setq erc-hide-list (quote ("JOIN" "PART" "QUIT"))
       erc-modules (quote (autojoin button completion fill irccontrols
                                    list match menu move-to-prompt netsplit
@@ -10,6 +13,8 @@
       erc-nick "jory"
       erc-user-full-name "Jory Graham"
       erc-input-line-position -1)
+
+(mouse-avoidance-mode)
 
 (defun eshell/clear ()
   "Clears the shell buffer ala Unix's clear or DOS' cls"
@@ -35,3 +40,7 @@
              (message "The region has 1 word."))
             (t (message "The region has %d words." count))))))
 
+(global-set-key "\C-c=" 'count-words-region)
+(global-set-key "\C-co" 'occur)
+
+(put 'narrow-to-region 'disabled nil)
