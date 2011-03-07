@@ -1,10 +1,25 @@
-(color-theme-zenburn)
+;;; Packages
+(add-to-list 'package-archives '("marmalade" .
+                                 "http://marmalade-repo.org/packages/"))
 
+(setq starter-kit-packages
+      (append starter-kit-packages (list 'auto-complete)))
+
+(when (esk-online?)
+  (unless package-archive-contents (package-refresh-contents))
+  (starter-kit-elpa-install))
+
+;;; General tunings 
+(setq tab-width 4)
+
+;;; Windows specific tunings
 (if (eq system-type 'windows-nt)
     (setq magit-git-executable "C:/Program Files (x86)/Git/bin/git.exe"))
 
-(setq tab-width 4)
+;;; Nice colours
+(color-theme-zenburn)
 
+;;; ERC
 (setq erc-hide-list (quote ("JOIN" "PART" "QUIT"))
       erc-modules (quote (autojoin button completion fill irccontrols
                                    list match menu move-to-prompt netsplit
@@ -14,8 +29,13 @@
       erc-user-full-name "Jory Graham"
       erc-input-line-position -1)
 
-(mouse-avoidance-mode)
 
+;;; Useful minor modes
+(winner-mode 1)
+(mouse-avoidance-mode)
+(put 'narrow-to-region 'disabled nil)
+
+;;; Some defuns
 (defun eshell/clear ()
   "Clears the shell buffer ala Unix's clear or DOS' cls"
   (interactive)
@@ -40,7 +60,10 @@
              (message "The region has 1 word."))
             (t (message "The region has %d words." count))))))
 
+;;; Keys
 (global-set-key "\C-c=" 'count-words-region)
 (global-set-key "\C-co" 'occur)
 
-(put 'narrow-to-region 'disabled nil)
+;;; Aliases
+(defalias 'ia 'info-apropos)
+
