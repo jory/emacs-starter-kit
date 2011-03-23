@@ -10,7 +10,10 @@
   (starter-kit-elpa-install))
 
 ;;; General tunings 
-(setq tab-width 4)
+(setq tab-width 4
+      dired-isearch-filenames t)
+
+(setq-default cursor-type 'bar)
 
 ;;; Windows specific tunings
 (if (eq system-type 'windows-nt)
@@ -32,7 +35,6 @@
 
 ;;; Useful minor modes
 (winner-mode 1)
-(mouse-avoidance-mode)
 (put 'narrow-to-region 'disabled nil)
 
 ;;; Some defuns
