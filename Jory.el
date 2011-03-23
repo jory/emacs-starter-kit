@@ -17,7 +17,18 @@
 
 ;;; Javascript
 (remove-hook 'espresso-mode-hook 'esk-paredit-nonlisp)
+
+(add-hook 'espresso-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-c <right>") 'hs-show-block)
+            (local-set-key (kbd "C-c <left>") 'hs-hide-block)
+            (local-set-key (kbd "C-c <up>") 'hs-hide-all)
+            (local-set-key (kbd "C-c <down>") 'hs-show-all)
+            (hs-minor-mode t)
+            (hs-hide-all)))
+
 (setq espresso-indent-level 4)
+(setq espresso-auto-indent-flag nil)
 
 ;;; Windows specific tunings
 (if (eq system-type 'windows-nt)
@@ -39,7 +50,8 @@
 
 
 ;;; Useful minor modes
-(winner-mode 1)
+(setq winner-dont-bind-my-keys t)
+(winner-mode)
 (put 'narrow-to-region 'disabled nil)
 
 ;;; Some defuns
