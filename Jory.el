@@ -30,7 +30,8 @@
                                    scrolltobottom stamp track))
       erc-nick "jory"
       erc-user-full-name "Jory Graham"
-      erc-input-line-position -1)
+      erc-input-line-position -1
+      erc-autojoin-channels-alist '((".*freenode.net" "#emacs")))
 
 
 ;;; Useful minor modes
