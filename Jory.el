@@ -15,6 +15,10 @@
 
 (setq-default cursor-type 'bar)
 
+;;; Javascript
+(remove-hook 'espresso-mode-hook 'esk-paredit-nonlisp)
+(setq espresso-indent-level 4)
+
 ;;; Windows specific tunings
 (if (eq system-type 'windows-nt)
     (setq magit-git-executable "C:/Program Files (x86)/Git/bin/git.exe"))
