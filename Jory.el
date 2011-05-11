@@ -1,14 +1,3 @@
-;;; Packages
-(add-to-list 'package-archives '("marmalade" .
-                                 "http://marmalade-repo.org/packages/"))
-
-(setq starter-kit-packages
-      (append starter-kit-packages (list 'auto-complete)))
-
-(when (esk-online?)
-  (unless package-archive-contents (package-refresh-contents))
-  (starter-kit-elpa-install))
-
 ;;; General tunings 
 (setq tab-width 4
       dired-isearch-filenames t)
@@ -20,9 +9,9 @@
 (setq espresso-auto-indent-flag nil)
 
 ;;; Auto-complete mode
-;; (require 'auto-complete-config)
-;; (add-to-list 'ac-dictionary-directories (concat dotfiles-dir "ac-dict"))
-;; (ac-config-default)
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories (concat dotfiles-dir "ac-dict"))
+(ac-config-default)
 
 ;;; Windows specific tunings
 (if (eq system-type 'windows-nt)
@@ -31,8 +20,9 @@
       (require 'pyTunes)
       (require 'blacklist)))
 
-;;; Nice colours
-(color-theme-zenburn)
+(require 'color-theme)
+(require 'color-theme-solarized)
+(color-theme-solarized-dark)
 
 ;;; ERC
 (setq erc-hide-list (quote ("JOIN" "PART" "QUIT"))
@@ -47,7 +37,6 @@
 
 
 ;;; Useful minor modes
-;; (setq winner-dont-bind-my-keys t)
 (winner-mode)
 (put 'narrow-to-region 'disabled nil)
 
