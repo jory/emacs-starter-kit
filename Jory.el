@@ -13,26 +13,23 @@
 (setq tab-width 4
       dired-isearch-filenames t)
 
-(setq-default cursor-type 'bar)
-
 ;;; Javascript
 (remove-hook 'espresso-mode-hook 'esk-paredit-nonlisp)
-
-(add-hook 'espresso-mode-hook
-          (lambda ()
-            (local-set-key (kbd "C-c <right>") 'hs-show-block)
-            (local-set-key (kbd "C-c <left>") 'hs-hide-block)
-            (local-set-key (kbd "C-c <up>") 'hs-hide-all)
-            (local-set-key (kbd "C-c <down>") 'hs-show-all)
-            (hs-minor-mode t)
-            (hs-hide-all)))
 
 (setq espresso-indent-level 4)
 (setq espresso-auto-indent-flag nil)
 
+;;; Auto-complete mode
+;; (require 'auto-complete-config)
+;; (add-to-list 'ac-dictionary-directories (concat dotfiles-dir "ac-dict"))
+;; (ac-config-default)
+
 ;;; Windows specific tunings
 (if (eq system-type 'windows-nt)
-    (setq magit-git-executable "C:/Program Files (x86)/Git/bin/git.exe"))
+    (progn
+      (setq magit-git-executable "C:/Program Files (x86)/Git/bin/git.exe")
+      (require 'pyTunes)
+      (require 'blacklist)))
 
 ;;; Nice colours
 (color-theme-zenburn)
@@ -50,7 +47,7 @@
 
 
 ;;; Useful minor modes
-(setq winner-dont-bind-my-keys t)
+;; (setq winner-dont-bind-my-keys t)
 (winner-mode)
 (put 'narrow-to-region 'disabled nil)
 
@@ -86,3 +83,11 @@
 ;;; Aliases
 (defalias 'ia 'info-apropos)
 
+(add-hook 'slime-repl-mode-hook 'clojure-mode-font-lock-setup)
+
+;; Org Mode
+(org-remember-insinuate)
+(setq org-directory "~/Dropbox/org")
+(setq org-default-notes-file (concat org-directory "/notes.org"))
+(setq org-log-done 'time)
+(define-key global-map "\C-cr" 'org-remember)
