@@ -1,6 +1,6 @@
 ;;; General tunings 
-(setq tab-width 4
-      dired-isearch-filenames t)
+(set-default 'tab-width 4)
+(setq dired-isearch-filenames t)
 
 ;;; Javascript
 (remove-hook 'espresso-mode-hook 'esk-paredit-nonlisp)
