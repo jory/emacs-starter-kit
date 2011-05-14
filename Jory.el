@@ -71,6 +71,8 @@
 
 ;;; Aliases
 (defalias 'ia 'info-apropos)
+(defalias 'dark 'color-theme-solarized-dark)
+(defalias 'light 'color-theme-solarized-light)
 
 (add-hook 'slime-repl-mode-hook 'clojure-mode-font-lock-setup)
 
