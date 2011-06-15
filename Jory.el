@@ -4,7 +4,6 @@
 
 ;;; Javascript
 (remove-hook 'espresso-mode-hook 'esk-paredit-nonlisp)
-
 (setq espresso-indent-level 4)
 (setq espresso-auto-indent-flag nil)
 
@@ -21,8 +20,7 @@
       (require 'blacklist)))
 
 (require 'color-theme)
-(require 'color-theme-solarized)
-(color-theme-solarized-dark)
+(color-theme-zenburn)
 
 ;;; ERC
 (setq erc-hide-list (quote ("JOIN" "PART" "QUIT"))
@@ -82,3 +80,58 @@
 (setq org-default-notes-file (concat org-directory "/notes.org"))
 (setq org-log-done 'time)
 (define-key global-map "\C-cr" 'org-remember)
+(define-key global-map "\C-cl" 'org-store-link)
+
+(setq org-remember-templates
+      `(("Todo" ?t "* TODO %?\n %i\n %a" ,(concat org-directory "/todo.org") "Tasks")
+        ("Idea" ?i "* %^{Title}\n %i\n %a" ,(concat org-directory "/ideas.org") "Ideas")
+        ("Note" ?n "* %?\n %i\n %a" ,org-default-notes-file "Notes")))
+
+;; Coffeescript
+(add-to-list 'load-path "~/.emacs.d/vendor/coffee-mode")
+(require 'coffee-mode)
+
+(defun coffee-custom ()
+  "coffee-mode-hook"
+  (set (make-local-variable 'tab-width) 2)
+  (setq coffee-args-compile '("-c"))
+  (setq coffee-debug-mode t)
+  (define-key coffee-mode-map [(meta r)] 'coffee-compile-buffer)
+  (define-key coffee-mode-map [(meta R)] 'coffee-compile-file)
+  (setq coffee-command "coffee.bat")
+  (add-hook 'after-save-hook
+            '(lambda ()
+               (when (string-match "\.coffee$" (buffer-name))
+                 (coffee-compile-file)))))
+;; TODO: Fix this save hook / the coffee-compile-file command.
+
+(add-hook 'coffee-mode-hook
+          '(lambda() (coffee-custom)))
+
+(add-to-list 'load-path "~/.emacs.d/vendor/")
+(require 'bitlbee)
+
+(load "~/.emacs.d/.erc-auth")
+
+(add-hook 'erc-join-hook 'bitlbee-identify)
+(defun bitlbee-identify ()
+  "If we're on the bitlbee server, send the identify command to the 
+ &bitlbee channel."
+  (when (and (string= "localhost" erc-session-server)
+             (string= "&bitlbee" (buffer-name)))
+    (erc-message "PRIVMSG" (format "%s identify %s" 
+                                   (erc-default-target) 
+                                   bitlbee-password))))
+
+(global-unset-key "\C-ce")
+
+(global-set-key "\C-cef" (lambda () (interactive)
+                           (erc :server "irc.freenode.net" :port 6667
+                                :nick "jory" :password freenode-password)))
+
+(global-set-key "\C-ceb" (lambda () (interactive)
+                           (bitlbee-start)
+                           (erc :server "localhost" :port 6667
+                                :nick "jory")))
+
+(setq explicit-shell-file-name "zsh.exe")
