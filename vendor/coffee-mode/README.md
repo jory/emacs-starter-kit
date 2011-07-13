@@ -183,6 +183,13 @@ Bind it:
 
     (define-key coffee-mode-map [(meta R)] 'coffee-compile-region)
 
+### Compile-on-save
+
+Hitting the key sequence `C-c C-o C-s` turns on (toggles) the
+compile-on-save minor mode in `coffee-mode`.  To enable it by default:
+
+    (add-hook 'coffee-mode-hook '(lambda () (coffee-cos-mode t)))
+
 ### coffee-repl
 
 Starts a repl in a new buffer using `coffee-command`.
@@ -203,7 +210,7 @@ Naturally. Example:
       (setq coffee-js-mode 'javascript-mode)
 
       ;; If you don't want your compiled files to be wrapped
-      (setq coffee-args-compile '("-c" "--no-wrap"))
+      (setq coffee-args-compile '("-c" "--bare"))
 
       ;; *Messages* spam
       (setq coffee-debug-mode t)

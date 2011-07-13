@@ -238,7 +238,7 @@ path."
 (defvar coffee-prototype-regexp "\\(\\(\\w\\|\\.\\|_\\| \\|$\\)+?\\)::\\(\\(\\w\\|\\.\\|_\\| \\|$\\)+?\\):")
 
 ;; Assignment
-(defvar coffee-assign-regexp "\\(\\(\\w\\|\\.\\|_\\| \\|$\\)+?\\):")
+(defvar coffee-assign-regexp "\\(\\(\\w\\|\\.\\|_\\|$\\)+?\s*\\):")
 
 ;; Lambda
 (defvar coffee-lambda-regexp "\\((.+)\\)?\\s *\\(->\\|=>\\)")
@@ -461,17 +461,10 @@ For detail, see `comment-dwim'."
           (backward-to-indentation 0)
           (delete-region (point-at-bol) (point)))))))
 
-(defun coffee-indent-region (start end)
-  "TODO: DOCUMENT ME!"
-  (interactive "r")
-  (coffee-debug "Don't move, punk!"))
-
 (defun coffee-previous-indent ()
   "Return the indentation level of the previous non-blank line."
 
   (save-excursion
-    (coffee-debug "use-region-p: %s" (use-region-p))
-    (coffee-debug "mark-active: %s" mark-active)
     (forward-line -1)
     (if (bobp)
         0
@@ -492,6 +485,7 @@ For detail, see `comment-dwim'."
   ;; insert a newline, and indent the newline to the same
   ;; level as the previous line.
   (let ((prev-indent (current-indentation)) (indent-next nil))
+    (delete-horizontal-space t)
     (newline)
     (insert-tab (/ prev-indent coffee-tab-width))
 
@@ -580,6 +574,7 @@ line? Returns `t' or `nil'. See the README for more details."
   (define-key coffee-mode-map (kbd "A-M-r") 'coffee-repl)
   (define-key coffee-mode-map [remap comment-dwim] 'coffee-comment-dwim)
   (define-key coffee-mode-map "\C-m" 'coffee-newline-and-indent)
+  (define-key coffee-mode-map "\C-c\C-o\C-s" 'coffee-cos-mode)
 
   ;; code for syntax highlighting
   (setq font-lock-defaults '((coffee-font-lock-keywords)))
@@ -597,9 +592,6 @@ line? Returns `t' or `nil'. See the README for more details."
   (make-local-variable 'indent-line-function)
   (setq indent-line-function 'coffee-indent-line)
 
-  (make-local-variable 'indent-region-function)
-  (setq indent-region-function 'coffee-indent-region)
-
   ;; imenu
   (make-local-variable 'imenu-create-index-function)
   (setq imenu-create-index-function 'coffee-imenu-create-index)
@@ -609,6 +601,22 @@ line? Returns `t' or `nil'. See the README for more details."
 
   ;; hooks
   (set (make-local-variable 'before-save-hook) 'coffee-before-save))
+
+;;
+;; Compile-on-Save minor mode
+;;
+
+(defvar coffee-cos-mode-line " CoS")
+(make-variable-buffer-local 'coffee-cos-mode-line)
+
+(define-minor-mode coffee-cos-mode
+  "Toggle compile-on-save for coffee-mode."
+  :group 'coffee-cos :lighter coffee-cos-mode-line
+  (cond
+   (coffee-cos-mode
+    (add-hook 'after-save-hook 'coffee-compile-file nil t))
+   (t
+    (remove-hook 'after-save-hook 'coffee-compile-file t))))
 
 (provide 'coffee-mode)
 
