@@ -7,5 +7,7 @@
 
 (mouse-avoidance-mode 'banish)
 (winner-mode t)
+(server-mode t)
+
 
 (put 'narrow-to-region 'disabled nil)
