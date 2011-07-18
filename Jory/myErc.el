@@ -10,7 +10,7 @@
                              networks noncommands readonly ring
                              scrolltobottom track)
       erc-nick "jory"
-      erc-pals '("aprile")
+      erc-pals '("aprile" "jsiracusa")
       erc-track-exclude '("&bitlbee")
       erc-track-exclude-server-buffer t
       erc-track-switch-direction 'importance
@@ -31,7 +31,7 @@
 ;;                            (erc :server "irc.freenode.net" :port 6667
 ;;                                 :nick "jory" :password freenode-password)))
 
-;; (global-set-key "\C-ceb" (lambda () (interactive)
-;;                            (bitlbee-start)
-;;                            (erc :server "localhost" :port 6667
-;;                                 :nick "jory")))
+(global-set-key (kbd "\C-c t") (lambda () (interactive)
+                                 (bitlbee-start)
+                                 (erc :server "localhost" :port 6667
+                                      :nick "jory")))

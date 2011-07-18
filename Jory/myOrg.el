@@ -9,3 +9,9 @@
         ("Idea" ?i "* %^{Title}\n %i\n %a" ,(concat org-directory "/ideas.org") "Ideas")
         ("Note" ?n "* %?\n %i\n %a" ,org-default-notes-file "Notes")))
 
+
+;; Make windmove work in org-mode:
+(add-hook 'org-shiftup-final-hook 'windmove-up)
+(add-hook 'org-shiftleft-final-hook 'windmove-left)
+(add-hook 'org-shiftdown-final-hook 'windmove-down)
+(add-hook 'org-shiftright-final-hook 'windmove-right)

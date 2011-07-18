@@ -1,0 +1,5 @@
+(require 'color-theme-solarized)
+(defalias 'zen 'color-theme-zenburn)
+(defalias 'dark 'color-theme-solarized-dark)
+(defalias 'light 'color-theme-solarized-light)
+(zenburn)

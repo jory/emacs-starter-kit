@@ -13,3 +13,6 @@
             ((= 1 count)
              (message "The region has 1 word."))
             (t (message "The region has %d words." count))))))
+
+(defun date ()
+  (insert (format-time-string "%Y%m%d%H%M%S" (current-time))))
