@@ -22,8 +22,7 @@
 
   (setq outline-regexp "[ \t]*\\(class\\|.*\\(-\\|=\\)>$\\)")
   (setq outline-level 'coffee-outline-level)
-  (outline-minor-mode t)
-
-  (run-coding-hook))
+  (outline-minor-mode t))
 
 (add-hook 'coffee-mode-hook 'coffee-custom)
+(add-hook 'coffee-mode-hook 'run-coding-hook)
