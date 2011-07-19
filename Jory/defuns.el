@@ -15,4 +15,4 @@
             (t (message "The region has %d words." count))))))
 
 (defun date ()
-  (insert (format-time-string "%Y%m%d%H%M%S" (current-time))))
+  (insert (format-time-string "%Y%m%d%H%M%S" (current-time) t)))
