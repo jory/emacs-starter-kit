@@ -9,5 +9,16 @@
 (winner-mode t)
 (server-mode t)
 
-
 (put 'narrow-to-region 'disabled nil)
+
+(load "~/.emacs.d/vendor/nxhtml/autostart.el")
+
+;; These options came from the Rinari install instructions, and thus
+;; should be considered with a grain of salt.
+
+(setq nxhtml-global-minor-mode t
+      mumamo-chunk-coloring 'submode-colored
+      nxhtml-skip-welcome t
+      indent-region-mode t
+      rng-nxml-auto-validate-flag nil
+      nxml-degraded t)
