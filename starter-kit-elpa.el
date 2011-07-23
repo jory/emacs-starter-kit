@@ -12,6 +12,7 @@
                                    'find-file-in-project
                                    'magit
                                    'gist
+                                   'color-theme
                                    'color-theme-github
                                    'color-theme-railscasts
                                    'color-theme-solarized
