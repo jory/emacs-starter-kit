@@ -1,6 +1,6 @@
 ;; Ruby
 
-(add-to-list 'auto-mode-alist '("\\.html\\.erb$" . eruby-nxhtml-mumamo))
+(add-to-list 'auto-mode-alist '("\\.html\\.erb$" . eruby-nxhtml-mumamo-mode))
 
 (defun turn-off-comint-echo ()
   (setq comint-process-echoes t))
