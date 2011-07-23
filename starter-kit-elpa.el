@@ -11,7 +11,15 @@
                                    'yaml-mode
                                    'find-file-in-project
                                    'magit
-                                   'gist)
+                                   'gist
+                                   'color-theme-github
+                                   'color-theme-railscasts
+                                   'color-theme-solarized
+                                   'color-theme-zenburn
+                                   'erc
+                                   'rinari
+                                   'ruby-electric
+                                   'yasnippet-bundle)
   "Libraries that should be installed by default.")
 
 (defun starter-kit-elpa-install ()
